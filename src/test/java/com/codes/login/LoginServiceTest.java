@@ -1,8 +1,10 @@
 package com.codes.login;
 
 import com.codes.BaseTest;
+import com.codes.dao.login.model.Login;
 import com.codes.service.login.LoginService;
 import com.codes.dao.login.req.LoginReq;
+import com.mysql.cj.xdevapi.JsonArray;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,7 +27,8 @@ public class LoginServiceTest extends BaseTest {
      */
     @Test
     public void findByIdTest() {
-        print("根据ID查询测试通过");
+        Login login = loginService.findById("wcp");
+        print(login);
     }
 
     /**

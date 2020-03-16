@@ -1,7 +1,9 @@
 package com.codes.service.login;
 
 import com.codes.dao.login.model.Login;
+import com.codes.dao.login.req.GupiaoReq;
 import com.codes.dao.login.req.LoginReq;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,7 +12,14 @@ import java.util.List;
  * @author
  * @date 2020/02/26 16:54
  */
+@Service
 public interface LoginService {
+
+    Login findByAccountAndPassword(String account, String password);
+//    展示K线
+    void showK(String kaddr, String knum);
+
+//    List<GupiaoReq> findByMethod(String method);
 
     /**
      * 根据ID查询

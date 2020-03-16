@@ -16,7 +16,8 @@ public class Login {
     private String password;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    我增你mlgb
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ACCOUNT")
     public String getAccount() {
         return account;
