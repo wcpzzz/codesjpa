@@ -10,15 +10,12 @@ import javax.persistence.*;
 @Entity
 @Table(name="login")
 public class Login {
-
+    @Id
+    @Column(name = "ACCOUNT")
     private String account;
 
     private String password;
 
-    @Id
-//    我增你mlgb
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ACCOUNT")
     public String getAccount() {
         return account;
     }

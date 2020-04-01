@@ -2,7 +2,6 @@ package com.codes.service.login.impl;
 
 import com.codes.dao.login.LoginRepository;
 import com.codes.dao.login.model.Login;
-import com.codes.dao.login.req.GupiaoReq;
 import com.codes.dao.login.req.LoginReq;
 import com.codes.service.login.LoginService;
 import net.sf.json.JSONObject;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -37,11 +35,14 @@ public class LoginServiceImpl implements LoginService {
             return null;
         return modelOptional.get();
     }
+
+
     @Async
     @Override
     public void showK(String kaddr,String knum) {
         String[] arguments = new String[] {"python","C:\\Users\\Administrator\\PycharmProjects\\gupiao2\\truemethods\\gupiaoK.py",kaddr,knum+".csv"};
 //        String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\PycharmProjects\\gupiao2\\helloworld.py","2"};
+        System.out.println(kaddr+knum);
         try {
             Process process = Runtime.getRuntime().exec(arguments);
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
@@ -65,13 +66,6 @@ public class LoginServiceImpl implements LoginService {
 //    }
 
 
-
-
-
-
-
-
-
     @Override
     public Login findById(String id) {
         Optional<Login> modelOptional = loginRepository.findById(id);
@@ -89,21 +83,25 @@ public class LoginServiceImpl implements LoginService {
     public String create(LoginReq req) {
         Login model = new Login();
         BeanUtils.copyProperties(req, model);
-        System.out.println(model + "model");
-        System.out.println(JSONObject.fromObject(model).toString()+"bbb");
         model = loginRepository.save(model);
         return model.getAccount();
     }
 
     @Override
     public void updateById(LoginReq req) {
+        Optional<Login> modelOptional2 = Optional.ofNullable(loginRepository.findByAccountAndPassword(req.getAccount(), req.getPassword()));
+        if (!modelOptional2.isPresent()){
+            throw new IllegalArgumentException("输入信息有误");
+        }
         if (req.getAccount() == null)
             throw new IllegalArgumentException("缺少ID");
         Optional<Login> modelOptional = loginRepository.findById(req.getAccount());
         if (!modelOptional.isPresent())
             return;
         Login model = modelOptional.get();
-        BeanUtils.copyProperties(req, model);
+//        BeanUtils.copyProperties(req, model);
+        model.setAccount(req.getAccount());
+        model.setPassword(req.getNewpassword());
         loginRepository.save(model);
     }
 
