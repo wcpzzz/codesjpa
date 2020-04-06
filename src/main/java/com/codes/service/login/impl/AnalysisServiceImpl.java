@@ -30,8 +30,8 @@ public class AnalysisServiceImpl implements AnalysisService {
         return modelOptional.get();
     }
     @Override
-    public List<Analysis> findAll(String account) {
-        return analysisRepository.findAllByAccount(account);
+    public List<Analysis> findAll(String account,String method) {
+        return analysisRepository.findAllByAccountAndMethod(account,method);
     }
     @Override
     public void deleteById(int id) {

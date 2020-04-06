@@ -16,5 +16,5 @@ import java.util.List;
 public interface AnalysisRepository extends JpaRepository<Analysis, Integer> {
     Analysis findByGpidAndMethod(String gpid, String method);
     Analysis findByGpid(String gpid);
-    List<Analysis> findAllByAccount(String account);
+    List<Analysis> findAllByAccountAndMethod(String account,String method);
 }

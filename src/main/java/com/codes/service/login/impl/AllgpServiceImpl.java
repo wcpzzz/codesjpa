@@ -1,7 +1,9 @@
 package com.codes.service.login.impl;
 
 import com.codes.dao.login.AllgpRepository;
+import com.codes.dao.login.JunzhiRepository;
 import com.codes.dao.login.model.Allgp;
+import com.codes.dao.login.model.JunzhiList;
 import com.codes.service.login.AllgpService;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,8 @@ public class AllgpServiceImpl implements AllgpService {
 
     @Autowired
     private AllgpRepository allgpRepository;
-
+    @Autowired
+    private JunzhiRepository junzhiRepository;
     @Override
     public Allgp findByGpidAndGpname(String gpid, String gpname) {
             Optional<Allgp> modelOptional = Optional.ofNullable(allgpRepository.findByGpidAndGpname(gpid, gpname));
@@ -31,5 +34,9 @@ public class AllgpServiceImpl implements AllgpService {
     @Override
     public List<Allgp> findAll() {
         return allgpRepository.findAll();
+    }
+    @Override
+    public List<JunzhiList> findJunzhiAll() {
+        return junzhiRepository.findAll();
     }
 }

@@ -17,6 +17,8 @@ public interface LoginService {
     Login findByAccountAndPassword(String account, String password);
 //    展示K线
     void showK(String kaddr, String knum);
+    void showAnalysis(String id,String method, String account,String gpid,String gpname,String memo,String createOrUpdate,String minConf,String minSupport);
+    void showAnalysis2(String id,String method, String account,String gpid,String gpname,String memo,String createOrUpdate);
 
 //    List<GupiaoReq> findByMethod(String method);
 

@@ -60,11 +60,71 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
+//    @Async
+    @Override
+    public void showAnalysis2(String id,String method, String account,String gpid,String gpname,String memo,String createOrUpdate) {
+        System.out.println(id+
+                method+
+                account+
+                gpid+
+                gpname+
+                memo+
+                createOrUpdate
+        );
+        String[] arguments = new String[] {"python","C:\\Users\\Administrator\\PycharmProjects\\gupiao2\\truemethods\\sort.py",account,gpid,gpname,memo,id};
+//        String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\PycharmProjects\\gupiao2\\helloworld.py","2"};
+        System.out.println(arguments);
+        try {
+            Process process = Runtime.getRuntime().exec(arguments);
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            in.close();
+            //java代码中的process.waitFor()返回值为0表示我们调用python脚本成功，
+            //返回值为1表示调用python脚本失败，这和我们通常意义上见到的0与1定义正好相反
+            int re = process.waitFor();
+            System.out.println(re);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Override
 //    public List<GupiaoReq> findByMethod(String method) {
 //        return Lists.newArrayList(loginRepository.findAllByMethod(method));
 //    }
 
+    public void showAnalysis(String id,String method, String account,String gpid,String gpname,String memo,String createOrUpdate,String minConf,String minSupport) {
+        System.out.println(id+
+                method+
+                account+
+                gpid+
+                gpname+
+                memo+
+                createOrUpdate+
+                minConf+
+                minSupport
+        );
+        String[] arguments = new String[] {"python","C:\\Users\\Administrator\\PycharmProjects\\gupiao2\\truemethods\\apriorijj.py",gpid,account,gpname,minSupport,minConf,createOrUpdate,id,memo};
+//        String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\PycharmProjects\\gupiao2\\helloworld.py","2"};
+        System.out.println(arguments);
+        try {
+            Process process = Runtime.getRuntime().exec(arguments);
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            in.close();
+            //java代码中的process.waitFor()返回值为0表示我们调用python脚本成功，
+            //返回值为1表示调用python脚本失败，这和我们通常意义上见到的0与1定义正好相反
+            int re = process.waitFor();
+            System.out.println(re);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Login findById(String id) {

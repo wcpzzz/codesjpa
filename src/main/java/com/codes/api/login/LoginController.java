@@ -1,10 +1,7 @@
 package com.codes.api.login;
 import com.codes.api.BaseController;
 import com.codes.core.model.R;
-import com.codes.dao.login.model.Allmethod;
-import com.codes.dao.login.model.Analysis;
-import com.codes.dao.login.model.Login;
-import com.codes.dao.login.model.Allgp;
+import com.codes.dao.login.model.*;
 import com.codes.dao.login.req.*;
 import com.codes.service.login.AllgpService;
 import com.codes.service.login.AllmethodService;
@@ -81,17 +78,33 @@ public class LoginController extends BaseController {
             return null;
         }
     }
+
+
+    @PostMapping("/junzhiList")
+    public R<List<JunzhiList>> junzhiList() {
+        List<JunzhiList> junzhiList = allgpService.findJunzhiAll();
+        if (junzhiList != null) {
+            return R.data(junzhiList);
+        } else {
+            return null;
+        }
+    }
     //全部分析
     @PostMapping("/analysisAll")
     public R<List<Analysis>> analysis(@RequestBody(required = false) Analysis analysisReq) {
         String account = analysisReq.getAccount();
-        List<Analysis> analysis = analysisService.findAll(account);
+        String method = analysisReq.getMethod();
+        List<Analysis> analysis = analysisService.findAll(account,method);
         if (analysis != null) {
             return R.data(analysis);
         } else {
             return null;
         }
     }
+
+
+
+
     //全部分析
     @PostMapping("/analysisOne")
     public R<Analysis> analysisOne(@RequestBody(required = false) Analysis analysisReq) {
@@ -125,12 +138,23 @@ public class LoginController extends BaseController {
     public R register(@RequestBody(required = false) LoginReq req) {
         return R.data(loginService.create(req));
     }
+
+
     @PostMapping("/showK")
     public R showK(@RequestBody(required = false) ShowKReq req) {
         loginService.showK(req.getKaddr(), req.getKnum());
         return R.data(req);
     }
-
+    @PostMapping("/showAnalysis")
+    public R showAnalysis(@RequestBody(required = false) ShowAnalysisReq req) {
+        loginService.showAnalysis(req.getId(),req.getMethod(), req.getAccount(),req.getGpid(),req.getGpname(),req.getMemo(),req.getCreateOrUpdate(),req.getMinConf(),req.getMinSupport());
+        return R.data(req);
+    }
+    @PostMapping("/showAnalysis2")
+    public R showAnalysis2(@RequestBody(required = false) ShowAnalysisReq req) {
+        loginService.showAnalysis2(req.getId(),req.getMethod(), req.getAccount(),req.getGpid(),req.getGpname(),req.getMemo(),req.getCreateOrUpdate());
+        return R.data(req);
+    }
     /**
      * 根据ID查询
      *

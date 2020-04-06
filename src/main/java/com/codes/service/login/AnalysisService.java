@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public interface AnalysisService {
 //    展示所有股票
-    List<Analysis> findAll(String account);
+    List<Analysis> findAll(String account,String method);
     Analysis findByGpidAndMethod(String gpid,String method);
     String create(AnalysisReq req);
     void deleteById(int id);
